@@ -1,6 +1,8 @@
-require 'burrow/version'
+require 'json'
 require 'bunny'
-require 'burow/connection'
-require 'burow/client'
-require 'burow/message'
-require 'burow/server'
+
+require 'burrow/version'
+require 'burrow/connection'
+require 'burrow/client'
+require 'burrow/message'
+require 'burrow/server'

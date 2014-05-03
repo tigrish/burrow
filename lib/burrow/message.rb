@@ -1,7 +1,8 @@
 class Burrow::Message
-  attr_reader: :params
+  attr_reader :method, :params
 
-  def initialize(params={})
+  def initialize(method, params={})
+    @method = method
     @params = params
   end
 
@@ -10,10 +11,10 @@ class Burrow::Message
   end
 
   def attributes
-    default_attributes.merge(params)
-  end
-
-  def default_attributes
-    { jsonrpc: '2.0' }
+    { jsonrpc: '2.0',
+      id:      id,
+      method:  method,
+      params:  params
+    }
   end
 end

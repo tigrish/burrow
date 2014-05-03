@@ -18,7 +18,7 @@ class Burrow::Connection
   end
 
   def queue
-    channel.queue(queue_name, auto_delete: false)
+    @queue ||= channel.queue(queue_name, auto_delete: false)
   end
 
   def exchange
@@ -26,6 +26,6 @@ class Burrow::Connection
   end
 
   def return_queue
-    channel.queue('', exclusive: true)
+    @return_queue ||= channel.queue('', exclusive: true)
   end
 end

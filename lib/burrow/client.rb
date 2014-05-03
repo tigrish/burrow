@@ -1,14 +1,13 @@
 class Burrow::Client
-  attr_reader :queue_name, :message, :connection
+  attr_reader :message, :connection
 
-  def initialize(queue_name, params={})
-    @queue_name = queue_name
-    @message    = Message.new(params)
-    @connection = Connection.new(queue_name)
+  def initialize(queue, method, params={})
+    @connection = Burrow::Connection.new(queue)
+    @message    = Burrow::Message.new(method, params)
   end
 
-  def self.call(queue_name, params)
-    new(queue_name, params).call
+  def self.call(queue, method, params)
+    new(queue, method, params).call
   end
 
   def call
@@ -17,17 +16,19 @@ class Burrow::Client
   end
 
   def publish
-    connection.exchange.publish(json.generate(message.attributes), {
-      message_id:  message.id
-      reply_to:    connection.return_queue.name,
-      routing_key: connection.queue.name
-    })
-    message.id
+    connection.exchange.publish(
+      JSON.generate(message.attributes), {
+        correlation_id: message.id,
+        reply_to:       connection.return_queue.name,
+        routing_key:    connection.queue.name
+      }
+    )
   end
 
   def subscribe
+    response = nil
     connection.return_queue.subscribe(block: true) do |delivery_info, properties, payload|
-      if properties[:correlation_id] == message_id
+      if properties[:correlation_id] == message.id
         response = payload
         delivery_info.consumer.cancel
       end
