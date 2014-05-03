@@ -1,21 +1,13 @@
 class Burrow::Client
-  attr_reader :message, :connection
+  attr_reader :connection
 
-  def initialize(queue, method, params={})
+  def initialize(queue)
     @connection = Burrow::Connection.new(queue)
-    @message    = Burrow::Message.new(method, params)
   end
 
-  def self.call(queue, method, params)
-    new(queue, method, params).call
-  end
+  def publish(method, params={})
+    message = Burrow::Message.new(method, params)
 
-  def call
-    publish
-    subscribe
-  end
-
-  def publish
     connection.exchange.publish(
       JSON.generate(message.attributes), {
         correlation_id: message.id,
@@ -23,9 +15,7 @@ class Burrow::Client
         routing_key:    connection.queue.name
       }
     )
-  end
 
-  def subscribe
     response = nil
     connection.return_queue.subscribe(block: true) do |delivery_info, properties, payload|
       if properties[:correlation_id] == message.id
