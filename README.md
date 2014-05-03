@@ -1,7 +1,7 @@
 # Burrow
 
-This gem builds on top of the `bunny` gem and aims to remove as much of
-the boilerplate code as possible.
+This gem builds on top of the [bunny gem](https://github.com/ruby-amqp/bunny) for messaging with RabbitMQ and aims to remove most of
+the boilerplate code.
 
 **This gem is what it is, do not expect amazing support here!**
 
@@ -39,9 +39,14 @@ client = Burrow::Client.new('my_queue')
 json   = client.publish('my_method', first_param: 'one', second_param: 'two')
 ```
 
+## Todo
+
+- Document the configuration options for `bunny`
+- Figure out how to handle errors
+
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/burrow/fork )
+1. Fork it ( https://github.com/tigrish/burrow/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
