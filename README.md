@@ -1,6 +1,9 @@
 # Burrow
 
-TODO: Write a gem description
+This gem builds on top of the `bunny` gem and aims to remove as much of
+the boilerplate code as possible.
+
+**This gem is what it is, do not expect amazing support here!**
 
 ## Installation
 
@@ -18,7 +21,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Set up a server and handle incoming messages :
+
+```ruby
+server = Burrow::Server.new('my_queue')
+server.subscribe do |method, params|
+  if method == 'my_method'
+    {foo: 'bar', baz: 'biz'}
+  end
+end
+```
+
+Set up a client and send messages :
+
+```ruby
+client = Burrow::Client.new('my_queue')
+json   = client.publish('my_method', first_param: 'one', second_param: 'two')
+```
 
 ## Contributing
 
