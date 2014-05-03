@@ -1,8 +1,5 @@
 require 'json'
 require 'bunny'
 
-require 'burrow/version'
-require 'burrow/connection'
-require 'burrow/client'
-require 'burrow/message'
-require 'burrow/server'
+project_root = File.dirname(File.absolute_path(__FILE__))
+Dir.glob(project_root + '/burrow/*', &method(:require))

@@ -1,4 +1,4 @@
-class Burrow::Message
+class Burrow::Request
   attr_reader :method, :params
 
   def initialize(method, params={})
@@ -16,5 +16,9 @@ class Burrow::Message
       method:  method,
       params:  params
     }
+  end
+
+  def json
+    JSON.generate(attributes)
   end
 end
