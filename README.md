@@ -1,7 +1,8 @@
 # Burrow
 
-This gem builds on top of the [bunny gem](https://github.com/ruby-amqp/bunny) for messaging with RabbitMQ and aims to remove most of
-the boilerplate code.
+This gem builds on top of the [bunny gem](https://github.com/ruby-amqp/bunny) for messaging with RabbitMQ and aims to remove most of the boilerplate code.
+
+The [Micromessaging: Connecting Heroku Microservices w/Redis and RabbitMQ](http://blog.carbonfive.com/2014/04/28/micromessaging-connecting-heroku-microservices-wredis-and-rabbitmq/) article was the basis for the vast majority of the code here.
 
 **This gem is what it is, do not expect amazing support here!**
 
