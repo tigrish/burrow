@@ -1,3 +1,4 @@
+require 'burrow/version'
 require 'bunny'
 require 'burow/connection'
 require 'burow/client'
