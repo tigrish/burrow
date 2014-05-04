@@ -1,20 +1,22 @@
-class Burrow::Response
-  attr_reader :id, :params
+module Burrow
+  class Response
+    attr_reader :id, :params
 
-  def initialize(id, params)
-    @id     = id
-    @params = params
-  end
+    def initialize(id, params)
+      @id     = id
+      @params = params
+    end
 
-  def json
-    JSON.generate(attributes)
-  end
+    def json
+      JSON.generate(attributes)
+    end
 
-  def attributes
-    {
-      id:     id,
-      result: params,
-      jsonrpc: '2.0'
-    }
+    def attributes
+      {
+        id:     id,
+        result: params,
+        jsonrpc: '2.0'
+      }
+    end
   end
 end
